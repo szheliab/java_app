@@ -7,7 +7,6 @@ do_build() {
   mvn clean install -DskipTests=true
 }
 
-do_install()
-{
-    cp ${HAB_CACHE_SRC_PATH}/${pkg_dirname}/target/${pkg_name}.jar ${PREFIX}/
+do_install() {
+    cp /src/target/rd-1.0-SNAPSHOT.jar ${PREFIX}/
 }
