@@ -23,14 +23,9 @@ try {
 	stage('Docker Check') {
 		sleep 10
 		def response = sh returnStdout: true, script: 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null)'
-		
 		println response
 	}
-	if (response.equals("HTTP/1.1 200")) 
-	      { result = 'SuCCESS' }
-	 else { result = 'FAILURE' }
 	
-
 }
 
 catch (any) {
