@@ -4,11 +4,11 @@ node {
 String recepients = 'kouris92@gmail.com'
 
 try {
-	stage(name : 'Checkout') {
+	stage('Checkout') {
 		checkout scm     
 	}
 
-	stage(name : 'Maven build') {
+	stage('Maven build') {
 		sh 'mvn clean package'
 	}
 	
@@ -22,23 +22,26 @@ try {
 
 	stage('Docker Check') {
 		sleep 10
-		while(Response!="HTTP/1.1 200" && (System.currentTimeMillis() < end_time)){
-                    def Curl = "curl -I http://10.28.12.215:8383/health".execute().text
-                    Response = Curl[0..11]
-                    println Response
-                }
-	}
+		def response = sh returnStdout: true, script: 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null)'
+		println response
+	
+	if (response.equals("HTTP/1.1 200"))
+		{ result = 'SUCCESS' }
+	   else { result = 'FAILURE' }        
+
+}
 	
 }
 
 catch (any) {
+	result = 'FAILURE'
 	
-	result = 'FAILuRE'
-	throw any
 }
 
 finally {
-println result
-
+	stage('CleanUp') {
+		sh 'docker rm -f java_app && docker rmi my_app:my_app'
+		deleteDir()
+		}
 }
 }
