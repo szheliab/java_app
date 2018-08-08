@@ -1,7 +1,7 @@
 node {
 
-String subject = "${env.JOB_NAME} was " + "${result}";
-String body = "${result} " + "${env.shortCommit}";
+String subject = "${env.JOB_NAME} was " + println("result");
+String body = println("result") + "${env.shortCommit}";
 String to="kouris92@gmail.com"
 env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
 try {
