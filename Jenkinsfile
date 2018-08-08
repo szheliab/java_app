@@ -43,7 +43,7 @@ finally {
 
 stage ('Send mail') {        
 	println currentBuild.result
-
+}
 stage ('CleanUP') {
 	sh 'docker rm -f java_app && docker rmi my_app:my_app'
 	deleteDir()
