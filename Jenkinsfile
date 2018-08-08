@@ -1,7 +1,7 @@
 node {
 
-String subject = "${env.JOB_NAME} was build ${result}";
-String body = "Commit ${env.GIT_COMMIT}";
+String subject = "${env.JOB_NAME} was " + "${env.BUILD_STATUS}";
+String body = "${env.BUILD_STATUS} " + "${env.shortCommit}";
 String to="kouris92@gmail.com"
 
 try {
