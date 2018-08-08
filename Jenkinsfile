@@ -27,7 +27,7 @@ try {
 		println response
 	}
 	if (response.equals("HTTP/1.1 200")) 
-	      { currentBuild.result = 'SUCCESS' }
+	      { currentBuild.result = 'SuCCESS' }
 	 else { currentBuild.result = 'FAILURE' }
 	
 
@@ -35,14 +35,13 @@ try {
 
 catch (any) {
 	
-	currentBuild.result = 'FAILURE'
+	currentBuild.result = 'FAILuRE'
 	throw any
 }
 
 finally {
 
 stage ('Send mail') {        
-	println currentBuild.result
 	step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'kouris92@gmail.com', sendToIndividuals: true])
 	}
 
