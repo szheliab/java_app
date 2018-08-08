@@ -21,7 +21,7 @@ try {
 	}
 
 	stage('Docker Check') {
-		def proc = sh './curl.sh'.execute()
+		def proc = sh 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null').execute()
 		def b = new StringBuffer()
 		proc.consumeProcessErrorStream(b)
 
