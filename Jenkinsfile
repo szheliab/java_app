@@ -1,6 +1,6 @@
 node {
 
-def Response
+def response
 String recepients = 'kouris92@gmail.com'
 
 try {
@@ -21,14 +21,10 @@ try {
 	}
 
 	stage('Docker Check') {
-		def proc = sh 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null').execute()
-		def b = new StringBuffer()
-		proc.consumeProcessErrorStream(b)
-
-		println proc.text
-		println b.substring()
+		def response = sh 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null')
+		println response
 	}
-	if (Response=="HTTP/1.1 200") 
+	if (response=="HTTP/1.1 200") 
 	      { currentBuild.result = 'SUCCESS' }
 	 else { currentBuild.result = 'FAILURE' }
 	
