@@ -1,7 +1,7 @@
 node {
 
-String subject = TEst;
-String body = Test1;
+String subject = "TEst";
+String body = "Test1";
 String to="kouris92@gmail.com"
 
 try {
