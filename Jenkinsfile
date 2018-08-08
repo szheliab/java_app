@@ -1,7 +1,7 @@
 node {
-commitId = sh(returnStdout: true, script: 'git rev-parse HEAD')
+
 String subject = "${env.JOB_NAME} was build ${result}";
-String body = Commit "${commitId}"
+String body = Commit "${GIT_COMMIT}"
 String to="kouris92@gmail.com" 
 
 
