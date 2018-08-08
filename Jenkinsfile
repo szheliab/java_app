@@ -1,6 +1,6 @@
 node {
 
-def response
+
 String recepients = 'kouris92@gmail.com'
 
 try {
@@ -21,7 +21,9 @@ try {
 	}
 
 	stage('Docker Check') {
-		response = sh 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null)'
+		sleep 10
+		def response = sh returnStdout: true, script: 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null)'
+		
 		println response
 	}
 	if (response=="HTTP/1.1 200") 
