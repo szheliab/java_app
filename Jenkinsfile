@@ -32,11 +32,12 @@ try {
 		{ result = 'SUCCESS' }
 	   else { result = 'FAILURE' }        
 
-}
+	}
 	
 }
 
 catch (any) {
+
 	result = 'FAILURE'
 	
 }
@@ -45,8 +46,9 @@ finally {
 	stage('CleanUp') {
 		sh 'docker rm -f java_app && docker rmi my_app:my_app'
 		deleteDir()
-		}
+	}
 	stage('Send Mail') {
 		emailext(subject: subject, body: body, to: to, );
+	}
 }
 }
