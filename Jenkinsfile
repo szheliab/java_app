@@ -46,7 +46,7 @@ finally {
 
 stage ('Send mail') {        
 	println currentBuild.result
-	step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: '${recipients}', sendToIndividuals: true])
+	step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'kouris92@gmail.com', sendToIndividuals: true])
 	}
 
 stage ('CleanUP') {
