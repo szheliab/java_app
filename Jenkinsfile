@@ -1,6 +1,6 @@
 node {
 
-String subject = "${env.JOB_NAME} was " + "${result}";
+String subject = "${result}";
 String body = Commit "${env.GIT_COMMIT}";
 String to="kouris92@gmail.com"
 
