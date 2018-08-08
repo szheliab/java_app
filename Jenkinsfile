@@ -21,7 +21,7 @@ try {
 	}
 
 	stage('Docker Check') {
-		def response = sh 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null)'
+		response = sh 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null)'
 		println response
 	}
 	if (response=="HTTP/1.1 200") 
