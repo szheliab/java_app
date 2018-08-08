@@ -1,9 +1,8 @@
 node {
 
 String subject = "${env.JOB_NAME} was " + println("result");
-String body = println("result") + "${env.shortCommit}";
+String body = println("result") + "${env.GIT_COMMIT}";
 String to="kouris92@gmail.com"
-env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
 try {
 	stage('Checkout') {
 		checkout scm     
