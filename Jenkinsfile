@@ -35,15 +35,12 @@ try {
 
 catch (any) {
 	
-	currentBuild.result = 'FAILuRE'
+	result = 'FAILuRE'
 	throw any
 }
 
 finally {
+println result
 
-stage ('CleanUP') {
-	sh 'docker rm -f java_app && docker rmi my_app:my_app'
-	deleteDir()
-	}
 }
 }
