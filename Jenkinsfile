@@ -27,8 +27,8 @@ try {
 		println response
 	}
 	if (response.equals("HTTP/1.1 200")) 
-	      { currentBuild.result = 'SuCCESS' }
-	 else { currentBuild.result = 'FAILURE' }
+	      { result = 'SuCCESS' }
+	 else { result = 'FAILURE' }
 	
 
 }
@@ -41,9 +41,6 @@ catch (any) {
 
 finally {
 
-stage ('Send mail') {        
-	println currentBuild.result
-}
 stage ('CleanUP') {
 	sh 'docker rm -f java_app && docker rmi my_app:my_app'
 	deleteDir()
