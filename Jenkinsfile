@@ -22,8 +22,11 @@ try {
 
 	stage('Docker Check') {
 		sleep 10
-		def response = sh returnStdout: true, script: 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null)'
-		println response
+		while(Response!="HTTP/1.1 200" && (System.currentTimeMillis() < end_time)){
+                    def Curl = "curl -I http://10.28.12.215:8383/health".execute().text
+                    Response = Curl[0..11]
+                    println Response
+                }
 	}
 	
 }
