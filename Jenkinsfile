@@ -1,8 +1,7 @@
 node {
-
-String subject = "${env.JOB_NAME} was " + currentBuild.result.toString();
-String email_body="test1"
-String body = "test2"
+commitId = sh(returnStdout: true, script: 'git rev-parse HEAD')
+String subject = "${env.JOB_NAME} was build ${result}";
+String body = Commit "${commitId}"
 String to="kouris92@gmail.com" 
 
 
