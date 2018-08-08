@@ -28,11 +28,12 @@ try {
                     def Curl = "curl -I http://10.28.12.215:8383".execute().text
                     Response = Curl[0..11]
                     println Response
-	}
+		}
 	if (Response=="HTTP/1.1 200") 
 	      { currentBuild.result = 'SUCCESS' }
 	 else { currentBuild.result = 'FAILURE' }
 	}
+
 }
 
 catch (any) {
@@ -52,4 +53,4 @@ stage ('CleanUP') {
 	deleteDir()
 	}
 }
-{
+}
