@@ -1,8 +1,5 @@
 node {
 
-String subject = "${env.JOB_NAME} was " + println("result");
-String body = println("result") + "${env.GIT_COMMIT}";
-String to="kouris92@gmail.com"
 try {
 	stage('Checkout') {
 		checkout scm     
@@ -46,7 +43,12 @@ finally {
 		deleteDir()
 	}
 	stage('Send Mail') {
-		emailext(subject: subject, body: body, to: to, );
+
+		String subject = "${env.JOB_NAME} was " + println("result");
+		String body = println("result") + "${env.GIT_COMMIT}";
+		String to="kouris92@gmail.com"
+		
+		emailext(subject: subject, body: body, to: to);
 	}
 }
 }
