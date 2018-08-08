@@ -50,6 +50,7 @@ stage ('Send mail') {
 	}
 
 stage ('CleanUP') {
+	sh 'docker rm -f java_app && docker rmi my_app:my_app'
 	deleteDir()
 	}
 }
