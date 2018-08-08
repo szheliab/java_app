@@ -1,7 +1,10 @@
 node {
 
+String subject = "${env.JOB_NAME} was " + currentBuild.result.toString();
+String email_body="test1"
+String body = "test2"
+String to="kouris92@gmail.com" 
 
-String recepients = 'kouris92@gmail.com'
 
 try {
 	stage('Checkout') {
@@ -43,5 +46,7 @@ finally {
 		sh 'docker rm -f java_app && docker rmi my_app:my_app'
 		deleteDir()
 		}
+	stage('Send Mail') {
+		emailext(subject: subject, body: body, to: to, );
 }
 }
