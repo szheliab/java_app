@@ -21,12 +21,6 @@ try {
 		sleep 10
 		def response = sh returnStdout: true, script: 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null)'
 		println response
-	
-	if (response.equals("HTTP/1.1 200"))
-		{ result = 'SUCCESS' }
-	   else { result = 'FAILURE' } 
-		        
-
 	}
 	
 }
@@ -46,6 +40,7 @@ finally {
 		sh 'docker rm -f java_app && docker rmi my_app:my_app'
 		deleteDir()
 	}
+
 	stage('Send Mail') {
 		if (response.equals("HTTP/1.1 200"))
                 {   emailext (
@@ -60,5 +55,5 @@ finally {
 			recipients: 'kouris92@gmail.com'*/ ) }
 
 	}
-}
+
 }
