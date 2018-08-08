@@ -31,7 +31,7 @@ try {
 	if (Response=="HTTP/1.1 200") 
 	      { currentBuild.result = 'SUCCESS' }
 	 else { currentBuild.result = 'FAILURE' }
-	}
+	
 
 }
 
