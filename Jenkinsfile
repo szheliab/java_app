@@ -1,7 +1,7 @@
 node {
 
-String subject = "${env.JOB_NAME} was build ";
-String body = Commit 
+String subject = "${env.JOB_NAME} was " + "${env.BUILD_STATUS}";
+String body = "${env.BUILD_STATUS} " + "${env.shortCommit}";
 String to="kouris92@gmail.com"
 
 try {
@@ -27,8 +27,11 @@ try {
 		println response
 	
 	if (response.equals("HTTP/1.1 200"))
-		{ result = 'SUCCESS' }
-	   else { result = 'FAILURE' }        
+		{ println env.shortCommit
+                  env.BUILD_STATUS = "SUCCESS"
+                  env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
+		 }
+	   else { env.BUILD_STATUS = "FAILURE" }        
 
 	}
 	
@@ -36,7 +39,7 @@ try {
 
 catch (any) {
 
-	result = 'FAILURE'
+	println "${env.BUILD_STATUS}"
 	
 }
 
