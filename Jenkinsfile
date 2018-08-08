@@ -42,8 +42,7 @@ catch (any) {
 finally {
 
 stage ('Send mail') {        
-	step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'kouris92@gmail.com', sendToIndividuals: true])
-	}
+	println currentBuild.result
 
 stage ('CleanUP') {
 	sh 'docker rm -f java_app && docker rmi my_app:my_app'
