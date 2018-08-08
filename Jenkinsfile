@@ -34,10 +34,10 @@ try {
 catch (any) {
 
 	 emailext (
-                        subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                        body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+                        subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+                        /*body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
                         <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
-                        recipientProviders: [[$class: 'DevelopersRecipientProvider']] )
+                        recipients: 'kouris92@gmail.com' )*/
 	
 }
 
@@ -49,15 +49,15 @@ finally {
 	stage('Send Mail') {
 		if (response.equals("HTTP/1.1 200"))
                 {   emailext (
-			subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-			body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+			subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+			/*body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
 			<p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
-			recipientProviders: [[$class: 'DevelopersRecipientProvider']] ) }
+			recipients: 'kouris92@gmail.com'*/ ) }
            else { emailext (
-			subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-			body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+			subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+			/*body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
 			<p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
-			recipientProviders: [[$class: 'DevelopersRecipientProvider']] ) }
+			recipients: 'kouris92@gmail.com'*/ ) }
 
 	}
 }
