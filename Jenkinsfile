@@ -21,14 +21,13 @@ try {
 	}
 
 	stage('Docker Check') {
-                long start_time = System.currentTimeMillis();
-                long wait_time = 10000;
-                long end_time = start_time + wait_time
-                while(Response!="HTTP/1.1 200" && (System.currentTimeMillis() < end_time)){
+
+                while(Response!="HTTP/1.1 200" ||(System.currentTimeMillis()-startTime)<20000) {
                     def Curl = "curl -I http://10.28.12.215:8383".execute().text
                     Response = Curl[0..11]
                     println Response
-		}
+                }                
+	}
 	if (Response=="HTTP/1.1 200") 
 	      { currentBuild.result = 'SUCCESS' }
 	 else { currentBuild.result = 'FAILURE' }
