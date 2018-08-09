@@ -55,12 +55,8 @@ finally {
 		emailext(subject: subject, body: body, to: to); }
 		
 		else {
-
-		env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
-                env.BUILD_STATUS = "FAILURE"
-                String body = "${env.BUILD_STATUS} " + "${env.shortCommit}";
-                String subject = "${env.JOB_NAME} was " + "${env.BUILD_STATUS}";
-                emailext(subject: subject, body: body, to: to); }
+			System.exit(1)
+		 }
 
         }
 
