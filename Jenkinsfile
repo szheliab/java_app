@@ -1,6 +1,6 @@
 node {
 
-String subject = "${env.JOB_NAME} was " + result;
+String subject = new StringBuilder().with { append('${env.JOB_NAME} was '); append('result') }.toString()
 String body = result + env.shortCommit;
 String to = "kouris92@gmail.com"
 println subject
