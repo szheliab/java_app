@@ -4,8 +4,6 @@ String subject = "${env.JOB_NAME} was " + "${env.BUILD_STATUS}";
 String body = "${env.BUILD_STATUS} " + "${env.shortCommit}";
 String to = "kouris92@gmail.com"
 def response
-def mvnHome = tooy name: 'Maven', type: 'maven'
-
 
 
 try {
@@ -18,7 +16,7 @@ try {
 	}
 	
 	stage('Sonar') {
-		mvnHome
+		def mvnHome = tooy name: 'Maven', type: 'maven'
 		withSonarQubeEnv('SonarQUBE') {
 			sh "${mvnHome}/bin/mvn sonar:sonar"
 		}
