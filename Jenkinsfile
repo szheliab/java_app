@@ -5,7 +5,6 @@ String body = "${env.BUILD_STATUS} " + "${env.shortCommit}";
 String to = "kouris92@gmail.com"
 def response
 
-
 try {
 	stage('Checkout') {
 		checkout scm     
@@ -35,16 +34,15 @@ try {
 		println response
 	}
 
-println subject
-println body
-println to
-
-	
 }
 
 catch (any) {
 
+		result = "FAILURE"
+                env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
+                emailext(subject: subject, body: body, to: to); }
 	
+
 }
 
 finally {
@@ -64,19 +62,12 @@ finally {
 
         }
 
-println subject
-println body
-println to
-
 	stage('CleanUp') {
 		sh 'docker rm -f java_app && docker rmi my_app:my_app'
 		sh 'git clean -ffdx'
 		deleteDir()
 	}
 
-println subject
-println body
-println to
 
 }
 
