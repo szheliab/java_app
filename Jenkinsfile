@@ -1,8 +1,12 @@
 node {
+
 String subject = "${env.JOB_NAME} was " + "${env.BUILD_STATUS}";
 String body = "${env.BUILD_STATUS} " + "${env.shortCommit}";
-String to="kouris92@gmail.com"
+String to = "kouris92@gmail.com"
 def response
+def mvnHome = tooy name: 'Maven', type: 'maven'
+
+
 
 try {
 	stage('Checkout') {
@@ -13,6 +17,12 @@ try {
 		sh 'mvn clean package'
 	}
 	
+	stage('Sonar') {
+		mvnHome
+		withSonarQubeEnv('SonarQUBE') {
+			sh "${mvnHome}/bin/mvn sonar:sonar"
+		}
+	}
 	stage('Docker Build') {
 		sh 'docker build -t my_app:my_app .'
 	}
@@ -39,17 +49,15 @@ finally {
         stage('Send Mail') {
 		if(response.equals("HTTP/1.1 200")) {
 
-		println env.shortCommit
-                env.BUILD_STATUS = "SUCCESS"
+		env.BUILD_STATUS = "SUCCESS"
 		env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
-		emailext(subject: subject, body: body, to: to, replyTo: ''); }
+		emailext(subject: subject, body: body, to: to); }
 		
 		else {
 
-		println env.shortCommit
-                env.BUILD_STATUS = "FAILURE"
+		env.BUILD_STATUS = "FAILURE"
                 env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
-                emailext(subject: subject, body: body, to: to, replyTo: ''); }
+                emailext(subject: subject, body: body, to: to); }
 
         }
 
