@@ -1,7 +1,7 @@
 node {
 
-String subject = "${env.JOB_NAME} was " + "${result}";
-String body = "${result} " + "${env.shortCommit}";
+String subject = "${env.JOB_NAME} was " + 'result';
+String body = 'result ' + 'env.shortCommit';
 String to = "kouris92@gmail.com"
 println subject
 println body
