@@ -16,7 +16,7 @@ try {
 	}
 	
 	stage('Sonar') {
-		def mvnHome = tooy name: 'Maven', type: 'maven'
+		def mvnHome = tool name: 'Maven', type: 'maven'
 		withSonarQubeEnv('SonarQUBE') {
 			sh "${mvnHome}/bin/mvn sonar:sonar"
 		}
