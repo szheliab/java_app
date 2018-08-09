@@ -35,10 +35,7 @@ catch (any) {
 finally {
 	
         stage('Send Mail') {
-		step([$class: 'Mailer',
-                notifyEveryUnstableBuild: true,
-                recipients: "kouris92@gmail.com",
-                sendToIndividuals: true])
+		step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'kouris92@gmail.com', sendToIndividuals: true])
         }
 
 
