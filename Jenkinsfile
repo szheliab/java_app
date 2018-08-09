@@ -50,7 +50,7 @@ finally {
 
 		env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
                 env.BUILD_STATUS = "SUCCESS"
-                String body = "${env.BUILD_STATUS} " + "${env.shortCommit}";
+                String body = "${env.BUILD_STATUS} Commit " + "${env.shortCommit}";
                 String subject = "${env.JOB_NAME} was " + "${env.BUILD_STATUS}";
 		emailext(subject: subject, body: body, to: to); }
 		
@@ -66,8 +66,8 @@ finally {
 
 	stage('CleanUp') {
 		sh 'docker rm -f java_app && docker rmi my_app:my_app'
-		sh 'git clean -ffdx'
-		deleteDir()
+		/*sh 'git clean -ffdx'
+		deleteDir() */
 	}
 
 
