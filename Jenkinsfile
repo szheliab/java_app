@@ -28,8 +28,8 @@ try {
 
 	stage('Docker Check') {
 		sleep 10
-		response = sh returnStdout: true, script: 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null)'
-		println response[0..11]
+		def curl = sh returnStdout: true, script: 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null)'
+		response = curl[0..11]
 	}
 	println response
 	println response
