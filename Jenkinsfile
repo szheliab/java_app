@@ -35,7 +35,7 @@ catch (any) {
 finally {
 	
         stage('Send Mail') {
-		if(response.equal(HTTP/1.1 200)) {
+		if(response.equal("HTTP/1.1 200")) {
 		emailext (
 			subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
 			body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
