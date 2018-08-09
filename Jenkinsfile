@@ -3,6 +3,10 @@ node {
 String subject = "${env.JOB_NAME} was " + "${env.BUILD_STATUS}";
 String body = "${env.BUILD_STATUS} " + "${env.shortCommit}";
 String to = "kouris92@gmail.com"
+println subject
+println body
+println to
+
 def response
 
 
@@ -34,6 +38,11 @@ try {
 		response = sh returnStdout: true, script: 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null)'
 		println response
 	}
+
+println subject
+println body
+println to
+
 	
 }
 
@@ -59,12 +68,20 @@ finally {
 
         }
 
+println subject
+println body
+println to
 
 	stage('CleanUp') {
 		sh 'docker rm -f java_app && docker rmi my_app:my_app'
 		sh 'git clean -ffdx'
 		deleteDir()
 	}
+
+println subject
+println body
+println to
+
 }
 
 }
