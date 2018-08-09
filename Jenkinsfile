@@ -37,7 +37,7 @@ catch (any) {
 finally {
 	
         stage('Send Mail') {
-		if(response.equal("HTTP/1.1 200")) {
+		if(response.equals("HTTP/1.1 200")) {
 
 		println env.shortCommit
                 env.BUILD_STATUS = "SUCCESS"
