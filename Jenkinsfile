@@ -1,5 +1,7 @@
 node {
 
+String gitAuthorEmail = 'kouris92@gmail.com'
+
 try {
 	stage('Checkout') {
 		checkout scm     
@@ -33,17 +35,12 @@ catch (any) {
 finally {
 	stage('CleanUp') {
 		sh 'docker rm -f java_app && docker rmi my_app:my_app'
+		sh 'git clean -ffdx'
 		deleteDir()
 	}
 
 	stage('Send Mail') {
-		if (response.equals("HTTP/1.1 200"))
-                {   emailext (
-			subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'")
-		}
-           else { emailext (
-			subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'") }
-
+		step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: "${gitAuthorEmail}", sendToIndividuals: true])
 	}
 
 }
