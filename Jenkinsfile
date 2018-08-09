@@ -1,7 +1,5 @@
 node {
 
-String subject = """${env.JOB_NAME} was ${result}""";
-String body = """${result} commit ${shortCommit}""";
 String to = "kouris92@gmail.com"
 def response
 
@@ -38,8 +36,10 @@ try {
 
 catch (any) {
 
-		result = "FAILURE"
-                shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
+		env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
+                env.BUILD_STATUS = "FAILURE"
+                String body = "${env.BUILD_STATUS} " + "${env.shortCommit}";
+                String subject = "${env.JOB_NAME} was " + "${env.BUILD_STATUS}";
                 emailext(subject: subject, body: body, to: to);
 }
 
@@ -48,14 +48,18 @@ finally {
         stage('Send Mail') {
 		if(response.equals("HTTP/1.1 200")) {
 
-		result = "SUCCESS"
-		shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
+		env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
+                env.BUILD_STATUS = "SUCCESS"
+                String body = "${env.BUILD_STATUS} " + "${env.shortCommit}";
+                String subject = "${env.JOB_NAME} was " + "${env.BUILD_STATUS}";
 		emailext(subject: subject, body: body, to: to); }
 		
 		else {
 
-		result = "FAILURE"
-                shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
+		env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
+                env.BUILD_STATUS = "FAILURE"
+                String body = "${env.BUILD_STATUS} " + "${env.shortCommit}";
+                String subject = "${env.JOB_NAME} was " + "${env.BUILD_STATUS}";
                 emailext(subject: subject, body: body, to: to); }
 
         }
