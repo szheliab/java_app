@@ -1,7 +1,7 @@
 node {
 
-def subject =  println result;
-def body = println result ";
+def subject =  println result
+def body = println result
 def to = "kouris92@gmail.com"
 println subject
 println body
