@@ -37,12 +37,12 @@ finally {
         stage('Send Mail') {
 		if(response.equal("HTTP/1.1 200")) {
 		emailext (
-			subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+			subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
 			body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
 			<p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
 			recipients: 'kouris92@gmail.com' ) }
 		else {
-			subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+			subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
 			body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
 			<p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
 			recipients: 'kouris92@gmail.com' ) }
