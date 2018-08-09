@@ -30,9 +30,10 @@ try {
 		sleep 10
 		def curl = sh returnStdout: true, script: 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null)'
 		response = curl[0..11]
+		println response
+		println response
 	}
-	println response
-	println response
+	
 }
 
 catch (any) {
