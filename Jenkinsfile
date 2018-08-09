@@ -1,6 +1,6 @@
 node {
 
-def subject = ${result} 
+def subject = "${result}" 
 def body = "test2"
 def to = "kouris92@gmail.com"
 println subject
