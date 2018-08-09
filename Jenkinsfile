@@ -35,11 +35,10 @@ catch (any) {
 finally {
 	
         stage('Send Mail') {
-		if(response.equal("HTTP/1.1 200")) {
-		emailext (
-			subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'", body: "test", recepients: 'kouris92@gmail.com' ) }
-		else {
-			subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'", body: "test", recepients: 'kouris92@gmail.com' ) }
+		step([$class: 'Mailer',
+                notifyEveryUnstableBuild: true,
+                recipients: "kouris92@gmail.com",
+                sendToIndividuals: true])
         }
 
 
