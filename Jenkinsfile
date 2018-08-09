@@ -46,7 +46,7 @@ catch (any) {
 finally {
 	
         stage('Send Mail') {
-		if(response == "HTTP/1.1 200")) {
+		if(response == 'HTTP/1.1 200')) {
 
 		env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
                 env.BUILD_STATUS = "SUCCESS"
