@@ -40,9 +40,7 @@ catch (any) {
 
 		result = "FAILURE"
                 shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
-                emailext(subject: subject, body: body, to: to); }
-	
-
+                emailext(subject: subject, body: body, to: to);
 }
 
 finally {
