@@ -1,8 +1,8 @@
 node {
 
-String subject = println "Build ${env.JOB_NAME} was " + result;
-String body = println result + " Commit ${env.shortCommit}";
-String to = "kouris92@gmail.com"
+def subject =  println result;
+def body = println result ";
+def to = "kouris92@gmail.com"
 println subject
 println body
 println to
