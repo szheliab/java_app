@@ -1,6 +1,6 @@
 node {
 
-String gitAuthorEmail = 'kouris92@gmail.com'
+String Recepients = 'kouris92@gmail.com'
 
 try {
 	stage('Checkout') {
@@ -40,7 +40,7 @@ finally {
 	}
 
 	stage('Send Mail') {
-		step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: "${gitAuthorEmail}", sendToIndividuals: true])
+		step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: "${Recepients}", sendToIndividuals: true])
 	}
 
 }
