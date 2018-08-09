@@ -1,7 +1,7 @@
 node {
 
-def subject =  println "test1" 
-def body = echo "test2"
+def subject = "test1" 
+def body = "test2"
 def to = "kouris92@gmail.com"
 println subject
 println body
