@@ -29,7 +29,7 @@ try {
 	stage('Docker Check') {
 		sleep 10
 		response = sh returnStdout: true, script: 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null)'
-		println response
+		println response[0..11]
 	}
 
 }
@@ -46,7 +46,7 @@ catch (any) {
 finally {
 	
         stage('Send Mail') {
-		if(response == 'HTTP/1.1 200')) {
+		if(response.equals("HTTP/1.1 200")) {
 
 		env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
                 env.BUILD_STATUS = "SUCCESS"
