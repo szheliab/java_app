@@ -1,6 +1,8 @@
 node {
-
-String Recepients = 'kouris92@gmail.com'
+String subject = "${env.JOB_NAME} was " + "${env.BUILD_STATUS}";
+String body = "${env.BUILD_STATUS} " + "${env.shortCommit}";
+String to="kouris92@gmail.com"
+def response
 
 try {
 	stage('Checkout') {
@@ -21,7 +23,7 @@ try {
 
 	stage('Docker Check') {
 		sleep 10
-		def response = sh returnStdout: true, script: 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null)'
+		response = sh returnStdout: true, script: 'head -n1 <(curl -I 10.28.12.215:8383/health/ 2> /dev/null)'
 		println response
 	}
 	
@@ -35,7 +37,20 @@ catch (any) {
 finally {
 	
         stage('Send Mail') {
-		step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'kouris92@gmail.com', sendToIndividuals: true])
+		if(response.equal("HTTP/1.1 200")) {
+
+		println env.shortCommit
+                env.BUILD_STATUS = "SUCCESS"
+		env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
+		emailext(subject: subject, body: body, to: to, replyTo: ''); }
+		
+		else {
+
+		println env.shortCommit
+                env.BUILD_STATUS = "FAILURE"
+                env.shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:\'%h\'").trim()
+                emailext(subject: subject, body: body, to: to, replyTo: ''); }
+
         }
 
 
