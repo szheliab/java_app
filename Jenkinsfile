@@ -1,12 +1,12 @@
 node {
 
-def subject = "test1" 
+def subject = ${result} 
 def body = "test2"
 def to = "kouris92@gmail.com"
 println subject
 println body
 println to
-
+String result
 def response
 
 
