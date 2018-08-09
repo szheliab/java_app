@@ -39,11 +39,11 @@ finally {
 		emailext (
 			subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
 			body: "test",
-			recipients: 'kouris92@gmail.com' ) }
+			recepients: 'kouris92@gmail.com' ) }
 		else {
 			subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
 			body: "test"
-			recipients: 'kouris92@gmail.com' ) }
+			recepients: 'kouris92@gmail.com' ) }
         }
 
 
