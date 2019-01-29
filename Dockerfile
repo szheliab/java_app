@@ -1,10 +1,17 @@
 FROM openjdk:8-jre
 
-ENV JAVA_OPTS="-Xmx256m -Xms256m"
-ENV APP_JAR="/opt/myapp/app.jar"
+ENV JAVA_OPTS="-Xmx256m -Xms256m" \
+    JAR_DIR="/opt/myapp/" \
+    JAR_NAME="app.jar"
 
-ADD target/*.jar ${APP_JAR}
+COPY docker-entrypoint.sh /
+COPY target/*.jar ${JAR_DIR}${JAR_NAME}
+
+VOLUME ["/tmp", "/var/log"]
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "${JAVA_OPTS}", "-jar", "${APP_JAR}"]
+WORKDIR $JAR_DIR
+RUN chmod +x /docker-entrypoint.sh
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
+CMD ["java", "${JAVA_OPTS}", "-jar", "${JAR_DIR}${APP_NAME}"]
