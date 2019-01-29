@@ -1,11 +1,10 @@
 FROM openjdk:8-jre
 
-ARG JAR_FILE
+ENV JAVA_OPTS="-Xmx256m -Xms256m"
 ENV APP_JAR="/opt/myapp/app.jar"
-ENV MONGO_URL mongodb://mongodb:27017
 
-ADD ${JAR_FILE} ${APP_JAR}
+ADD target/*.jar ${APP_JAR}
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "${APP_JAR}"]
+ENTRYPOINT ["java", "${JAVA_OPTS}", "-jar", "${APP_JAR}"]
