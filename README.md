@@ -7,9 +7,9 @@ docker run -it --rm --name my-maven-project -v "$PWD":/usr/src/app -v "$HOME"/.m
 ```
 Application can take environment variables:
 ```
-DB_HOST: mysqlhost
-DB_PORT: 3306
-DB_NAME: testdb
-DB_USER: root
-DB_PASS: 123456aA
+DB_MYSQL_HOST: "mysqlhost"
+DB_MYSQL_PORT: 3306
+DB_MYSQL_NAME: "testdb"
+DB_MYSQL_USER: root
+DB_MYSQL_PASS: "123456aA"
 ```
