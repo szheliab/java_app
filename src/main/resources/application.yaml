@@ -1,17 +1,20 @@
 spring:
   datasource:
-    url: jdbc:mysql://mysqldb:3306/testdb?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true
-    username: root
-    password: root
+    url: jdbc:mysql://${db.host}:${db.port}/${db.name}?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true
+    username: ${db.user}
+    password: ${db.pass}
     driver-class-name: com.mysql.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
-
     hikari:
       connection-timeout: 3000
       idleTimeout: 10000
       maxLifetime: 30000
-
-
   jackson:
     serialization:
       indent_output: true
+db:
+  host: mysqlhost
+  port: 3306
+  name: testdb
+  user: root
+  pass: 123456aA
